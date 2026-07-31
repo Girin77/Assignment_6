@@ -1,66 +1,111 @@
 from tkinter import *
+import math
 
-# Create window
-root = Tk()
-root.title("Calculator")
-root.geometry("320x420")
-root.resizable(False, False)
+window = Tk()
+window.geometry('500x500')
 
-# Entry widget
-entry = Entry(root, width=18, font=("Arial", 22), bd=5, relief=RIDGE, justify=RIGHT)
-entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+e=Entry(window , width = 56, borderwidth = 5)
+e.place(x = 0,y = 0)
 
-# Function to display button value
-def click(value):
-    entry.insert(END, value)
+def click(num):
+    result = e.get()
+    e.delete(0,END)
+    e.insert(0 , str(result) + str(num))
 
-# Function to clear screen
+b = Button(window , text = '1', width = 12 , command = lambda:click(1))
+b.place(x = 10 , y = 60)
+
+b = Button(window , text = '2', width = 12 , command = lambda:click(2))
+b.place(x = 80 , y = 60)
+
+b = Button(window , text = '3', width = 12 , command = lambda:click(3))
+b.place(x = 170 , y = 60)
+
+b = Button(window , text = '4', width = 12 , command = lambda:click(4))
+b.place(x = 10 , y = 120)
+
+b = Button(window , text = '5', width = 12 , command = lambda:click(5))
+b.place(x = 80 , y = 120)
+
+b = Button(window , text = '6', width = 12 , command = lambda:click(6))
+b.place(x = 170 , y = 120)
+
+b = Button(window , text = '7', width = 12 , command = lambda:click(7))
+b.place(x = 10 , y = 180)
+
+b = Button(window , text = '8', width = 12 , command = lambda:click(8))
+b.place(x = 80 , y = 180)
+
+b = Button(window , text = '9', width = 12 , command = lambda:click(9))
+b.place(x = 170 , y = 180)
+
+b = Button(window , text = '0', width = 12 , command = lambda:click(0))
+b.place(x = 80 , y = 240)
+
+def equal():
+    n2 = e.get()
+    e.delete(0,END)
+    if math == "addition":
+        e.insert(0,i + int(n2))
+    elif math == "subtraction":
+        e.insert(0, i - int(n2))
+    elif math == "multiplication":
+        e.insert(0, i * int(n2))
+    elif math == "division":
+        e.insert(0, i / int(n2))
+
+b = Button(window , text = '=', width = 12 , command = equal)
+b.place(x = 170 , y = 240)
+
+
+def add():
+    n1 = e.get()
+    global i
+    global math
+    math = "addition"
+    i = int(n1)
+    e.delete(0, END)
+
+b = Button(window , text = '+', width = 12 , command = add)
+b.place(x = 10 , y = 300)
+
+def sub():
+    n1 = e.get()
+    global i
+    global math
+    math = "subtraction"
+    i = int(n1)
+    e.delete(0, END)
+
+b = Button(window , text = '-', width = 12 , command = sub)
+b.place(x = 80 , y = 300)
+
+def mul():
+    n1 = e.get()
+    global i
+    global math
+    math = "multiplication"
+    i = int(n1)
+    e.delete(0, END)
+
+b = Button(window , text = 'x', width = 12 , command = mul )
+b.place(x = 170 , y = 300)
+
+def div():
+    n1 = e.get()
+    global i
+    global math
+    math = "division"
+    i = int(n1)
+    e.delete(0, END)
+
+b = Button(window , text = '/', width = 12 , command = div )
+b.place(x = 170 , y = 360)
+
 def clear():
-    entry.delete(0, END)
+    e.delete(0,END)
 
-# Function to calculate result
-def calculate():
-    try:
-        result = eval(entry.get())
-        entry.delete(0, END)
-        entry.insert(END, str(result))
-    except:
-        entry.delete(0, END)
-        entry.insert(END, "Error")
+b = Button(window , text = 'clear', width = 12 , command = clear)
+b.place(x = 10 , y = 360)
 
-# Button list
-buttons = [
-    ('7',1,0), ('8',1,1), ('9',1,2), ('/',1,3),
-    ('4',2,0), ('5',2,1), ('6',2,2), ('*',2,3),
-    ('1',3,0), ('2',3,1), ('3',3,2), ('-',3,3),
-    ('0',4,0), ('.',4,1), ('=',4,2), ('+',4,3),
-]
-
-# Create buttons
-for (text,row,col) in buttons:
-    if text == "=":
-        Button(root,
-               text=text,
-               width=8,
-               height=3,
-               font=("Arial",12),
-               command=calculate).grid(row=row,column=col)
-    else:
-        Button(root,
-               text=text,
-               width=8,
-               height=3,
-               font=("Arial",12),
-               command=lambda t=text: click(t)).grid(row=row,column=col)
-
-# Clear Button
-Button(root,
-       text="Clear",
-       width=35,
-       height=2,
-       bg="red",
-       fg="white",
-       font=("Arial",12),
-       command=clear).grid(row=5,column=0,columnspan=4,pady=10)
-
-root.mainloop()
+mainloop()
